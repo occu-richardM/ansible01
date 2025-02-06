@@ -1,0 +1,26 @@
+- name: Configure SSH settings
+  hosts: [ub24-template]
+  become: yes
+  tasks:
+    - name: Ensure SSH config directory exists
+      file:
+        path: /etc/ssh/sshd_config.d
+        state: directory
+        mode: '0755'
+
+    - name: Create custom SSH configuration
+      copy:
+        dest: "/etc/ssh/sshd_config.d/99-occu-custom.conf"
+        content: |
+          PasswordAuthentication no
+          PubkeyAuthentication yes
+          PermitRootLogin no
+        owner: root
+        group: root
+        mode: '0644'
+    
+    - name: Restart SSH service
+      systemd:
+        name: ssh
+        state: restarted
+

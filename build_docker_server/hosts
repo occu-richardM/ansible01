@@ -1,0 +1,179 @@
+[all]
+
+[all:vars]
+ansible_user=occuadmin
+
+
+[local]
+localhost ansible_connection=local
+
+[siem]
+
+hq-cribl-01 ansible_host=10.10.0.21 ansible_python_interpreter=/usr/bin/python3.12
+hq-splunk-01 ansible_host=10.10.0.22 ansible_python_interpreter=/usr/bin/python3.12
+
+[docker]
+HQ-DOCKER-01 ansible_host=10.10.0.133
+HQ-DOCKER-03 ansible_host=10.10.0.135
+HQ-DOCKER-04 ansible_host=10.10.0.136 
+HQ-DOCKER-05 ansible_host=10.10.0.137
+HQ-DOCKER-06 ansible_host=10.10.0.138
+HQ-DOCKER-07 ansible_host=10.10.0.149
+HQ-DOCKER-08 ansible_host=10.10.0.145
+HQ-DOCKER-10 ansible_host=10.10.0.147
+HQ-DOCKER-11 ansible_host=10.10.0.150
+HQ-DOCKER-12 ansible_host=10.10.0.161
+HQ-DOCKER-13 ansible_host=10.10.0.162
+HQ-DOCKERMORT-D ansible_host=10.10.0.165
+HQ-DOCKERSTAGING-01 ansible_host=10.10.59.39
+hq-dockeruat-01.orangecountyscu.org ansible_host=10.10.59.37
+
+[docker:vars]
+ansible_user=occuadmin
+
+[elastic]
+#hq-elastic-02.orangecountyscu.org ansible_host=10.10.0.144
+
+[webserver]
+#HQ-NGINX-03 ansible_host=10.10.59.43 
+
+[test]
+#10.10.1.141
+hq-test-linux ansible_host=10.10.0.190
+hq-test-linux2 ansible_host=10.10.0.186
+hq-test-linux3 ansible_host=10.10.0.185
+hq-test-linux4 ansible_host=10.10.0.69
+
+[phase1]
+HQ-DEVDMQ-05 ansible_host=10.10.59.33
+HQ-DEVDMZ-04 ansible_host=10.10.59.34
+HQ-NGINX-06 ansible_host=10.10.59.46
+HQ-DOCKER-03 ansible_host=10.10.0.135
+HQ-DOCKER-04 ansible_host=10.10.0.136
+HQ-DOCKER-05 ansible_host=10.10.0.137
+HQ-DOCKER-10 ansible_host=10.10.0.147
+HQ-ELASTIC-02 ansible_host=10.10.0.144
+HQ-RABBITMQ-DEV ansible_host=10.10.0.163
+
+[phase2]
+hq-dev-01 ansible_host=10.10.1.50
+HQ-DEVDMZ-03 ansible_host=10.10.59.26
+HQ-DEVDMZ-UAT ansible_host=10.10.59.22
+HQ-NGINXMORT-D ansible_host=10.10.59.49
+HQ-DOCHUB-UAT-01 ansible_host=10.10.52.36
+HQ-ELAST-UAT-01 ansible_host=10.10.1.144
+HQ-GITDEV-01 ansible_host=10.10.0.63
+HQ-RAB-UAT-01 ansible_host=10.10.52.32
+HQ-DOC-DEV-01 ansible_host=10.10.52.51
+HQ-DOC-DEV-02 ansible_host=10.10.52.52
+HQ-DOC-QA-01 ansible_host=10.10.52.61
+HQ-DOC-QA-02 ansible_host=10.10.52.62
+HQ-DOC-UAT-01 ansible_host=10.10.52.56
+HQ-DOC-UAT-02 ansible_host=10.10.52.57
+HQ-DOCKERMORT-D ansible_host=10.10.0.165
+HQ-DOCKERUAT-01 ansible_host=10.10.59.37
+HQ-mortdockerUAT-01 ansible_host=10.10.59.36
+HQ-TASK-DEV-01 ansible_host=10.10.52.53
+HQ-TASK-QA-01 ansible_host=10.10.52.60
+HQ-TASK-UAT-01 ansible_host=10.10.52.33
+
+[phase2_noefiboot]
+#hq-dev-01 ansible_host=10.10.1.50
+HQ-DEVDMZ-03 ansible_host=10.10.59.26
+HQ-DEVDMZ-UAT ansible_host=10.10.59.22
+HQ-NGINXMORT-D ansible_host=10.10.59.49
+HQ-DOC-DEV-01 ansible_host=10.10.52.51
+HQ-DOC-DEV-02 ansible_host=10.10.52.52
+HQ-DOC-QA-01 ansible_host=10.10.52.61
+HQ-DOC-QA-02 ansible_host=10.10.52.62
+HQ-DOC-UAT-01 ansible_host=10.10.52.56
+HQ-DOC-UAT-02 ansible_host=10.10.52.57
+HQ-DOCKERMORT-D ansible_host=10.10.0.165
+HQ-DOCKERUAT-01 ansible_host=10.10.59.37
+HQ-mortdockerUAT-01 ansible_host=10.10.59.36
+HQ-TASK-DEV-01 ansible_host=10.10.52.53
+HQ-TASK-QA-01 ansible_host=10.10.52.60
+HQ-TASK-UAT-01 ansible_host=10.10.52.33
+
+[phase3]
+BR-DOC-PRD-01 ansible_host=10.10.93.51
+BR-DOC-PRD-02 ansible_host=10.10.93.52
+BR-DOC-PRD-03 ansible_host=10.10.93.53
+BR-DOC-PRD-04 ansible_host=10.10.93.54
+BR-DOC-PRD-05 ansible_host=10.10.93.55
+BR-DOC-PRD-06 ansible_host=10.10.93.56
+BR-TASK-PRD-01 ansible_host=10.10.93.33
+HQ-API-01 ansible_host=10.10.39.30
+HQ-API-02 ansible_host=10.10.39.31
+HQ-DOCHUB-PRD-01 ansible_host=10.10.53.36
+HQ-DOCKER-06 ansible_host=10.10.0.138
+HQ-DOCKER-07 ansible_host=10.10.0.149
+HQ-DOCKER-08 ansible_host=10.10.0.145
+HQ-DOCKER-09 ansible_host=10.10.0.146
+HQ-DOCKER-11  ansible_host=10.10.0.150
+HQ-DOCKER-12 ansible_host=10.10.0.161
+HQ-DOCKER-13 ansible_host=10.10.0.162
+HQ-DOC-PRD-01 ansible_host=10.10.53.51
+HQ-DOC-PRD-02 ansible_host=10.10.53.52
+HQ-DOC-PRD-03 ansible_host=10.10.53.53
+HQ-DOC-PRD-04 ansible_host=10.10.53.54
+HQ-DOC-PRD-05 ansible_host=10.10.53.55
+HQ-DOC-PRD-06 ansible_host=10.10.53.56
+HQ-DOC-PRD-07 ansible_host=10.10.53.57
+HQ-DOC-PRD-08 ansible_host=10.10.53.58
+HQ-Elastic-03 ansible_host=10.10.1.139
+HQ-ELAST-PRD-01 ansible_host=10.10.1.143
+HQ-GIT-02 ansible_host=10.10.0.59
+HQ-NGINX-01 ansible_host=10.10.59.23
+HQ-NGINX-02 ansible_host=10.10.59.21
+HQ-NGINX-03 ansible_host=10.10.59.43
+HQ-OLBMONITOR-01 ansible_host=10.10.0.192
+HQ-PNGINX-01 ansible_host=10.10.39.21
+HQ-RABBITMQ-01 ansible_host=10.10.0.164
+HQ-RAB-PRD-01 ansible_host=10.10.53.32
+HQ-RP-01 ansible_host=10.10.39.22
+HQ-SFTP ansible_host=10.10.57.27
+HQ-TASK-PRD-01 ansible_host=10.10.53.33
+HQ-WEB-01 ansible_host=10.10.39.32
+
+[phase3_noefiboot]
+BR-DOC-PRD-01 ansible_host=10.10.93.51
+BR-DOC-PRD-02 ansible_host=10.10.93.52
+BR-DOC-PRD-03 ansible_host=10.10.93.53
+BR-DOC-PRD-04 ansible_host=10.10.93.54
+BR-DOC-PRD-05 ansible_host=10.10.93.55
+BR-DOC-PRD-06 ansible_host=10.10.93.56
+BR-TASK-PRD-01 ansible_host=10.10.93.33
+HQ-API-01 ansible_host=10.10.39.30
+HQ-API-02 ansible_host=10.10.39.31
+HQ-DOCKER-06 ansible_host=10.10.0.138
+HQ-DOCKER-07 ansible_host=10.10.0.149
+HQ-DOCKER-08 ansible_host=10.10.0.145
+HQ-DOCKER-09 ansible_host=10.10.0.146
+HQ-DOCKER-11  ansible_host=10.10.0.150
+HQ-DOCKER-12 ansible_host=10.10.0.161
+HQ-DOCKER-13 ansible_host=10.10.0.162
+HQ-DOC-PRD-01 ansible_host=10.10.53.51
+HQ-DOC-PRD-02 ansible_host=10.10.53.52
+HQ-DOC-PRD-03 ansible_host=10.10.53.53
+HQ-DOC-PRD-04 ansible_host=10.10.53.54
+HQ-DOC-PRD-05 ansible_host=10.10.53.55
+HQ-DOC-PRD-06 ansible_host=10.10.53.56
+HQ-DOC-PRD-07 ansible_host=10.10.53.57
+HQ-DOC-PRD-08 ansible_host=10.10.53.58
+HQ-Elastic-03 ansible_host=10.10.1.139
+HQ-GIT-02 ansible_host=10.10.0.59
+HQ-NGINX-01 ansible_host=10.10.59.23
+HQ-NGINX-02 ansible_host=10.10.59.21
+HQ-NGINX-03 ansible_host=10.10.59.43
+HQ-OLBMONITOR-01 ansible_host=10.10.0.192
+HQ-PNGINX-01 ansible_host=10.10.39.21
+HQ-RABBITMQ-01 ansible_host=10.10.0.164
+HQ-RP-01 ansible_host=10.10.39.22
+HQ-SFTP ansible_host=10.10.57.27
+HQ-TASK-PRD-01 ansible_host=10.10.53.33
+HQ-WEB-01 ansible_host=10.10.39.32
+
+
+[ub24-template]
+10.10.1.201 

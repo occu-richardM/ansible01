@@ -1,0 +1,46 @@
+- name: Create users and add SSH keys
+  hosts: [local]
+  become: yes
+  vars:
+    users:
+      - name: admin.jdang
+        ssh_key: "keys/admin.jdang.pub"
+      - name: admin.snasir
+        ssh_key: "keys/admin.snasir.pub"
+      - name: admin.rmendez
+        ssh_key: "keys/admin.rmendez.pub"
+
+  tasks:
+    - name: Ensure the group "OCCU-ADMINS" exists
+      group:
+        name: OCCU-ADMINS
+        state: present
+
+    - name: Create users and add them to "OCCUADMINS" group
+      user:
+        name: "{{ item.name }}"
+        groups: OCCU-ADMINS
+        append: yes
+        shell: /bin/bash
+        create_home: yes
+        state: present
+      loop: "{{ users }}"
+
+    - name: Set up SSH directory for each user
+      file:
+        path: "/home/{{ item.name }}/.ssh"
+        state: directory
+        owner: "{{ item.name }}"
+        group: "{{ item.name }}"
+        mode: '0700'
+      loop: "{{ users }}"
+
+    - name: Add public keys to authorized_keys
+      copy:
+        src: "{{ item.ssh_key }}"
+        dest: "/home/{{ item.name }}/.ssh/authorized_keys"
+        owner: "{{ item.name }}"
+        group: "{{item.name}}"
+        mode: '0600'
+      loop: "{{ users }}"
+

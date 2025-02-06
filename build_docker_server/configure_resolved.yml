@@ -1,0 +1,33 @@
+- name: Configure systemd-resolved with custom DNS servers
+  hosts: [ub24-template]
+  become: yes
+  tasks:
+    - name: Ensure /etc/systemd/resolved.conf exists
+      file:
+        path: /etc/systemd/resolved.conf
+        state: touch
+        mode: '0644'
+
+    - name: Configure systemd-resolved.conf
+      blockinfile:
+        path: /etc/systemd/resolved.conf
+        marker: "# {mark} ANSIBLE MANAGED BLOCK"
+        block: |
+          [Resolve]
+          DNS=10.10.0.11 10.10.0.12
+          Domains=orangecountyscu.org
+      notify: Restart systemd-resolved
+
+    - name: Ensure /etc/resolv.conf points to systemd-resolved
+      file:
+        src: /run/systemd/resolve/stub-resolv.conf
+        dest: /etc/resolv.conf
+        state: link
+        force: yes
+
+  handlers:
+    - name: Restart systemd-resolved
+      systemd:
+        name: systemd-resolved
+        state: restarted
+        enabled: yes
