@@ -1,0 +1,14 @@
+---
+- name: Check if WinRM is configured to allow remote connections
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Test WinRM connection
+      win_ping:
+      register: winrm_result
+
+    - name: Display WinRM status
+      debug:
+        msg: >
+          WinRM connection {{ 'successful' if winrm_result.ping is defined and winrm_result.ping == 'pong' else 'failed' }}
+

@@ -1,0 +1,7 @@
+Log installation issues
+If an error occurs during installation, the installer will only report a general failure.
+The detailed log will be saved to /var/log/microsoft/mdatp/install.log.
+
+
+Manual uninstallation
+` sudo apt-get purge mdatp `  for Ubuntu and Debian systems.

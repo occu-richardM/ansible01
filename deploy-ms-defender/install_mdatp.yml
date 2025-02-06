@@ -1,0 +1,25 @@
+---
+
+- hosts: cribl
+  become: yes
+  vars_files:
+    - vars/defender_vars.yml
+
+  tasks:
+    - name: Install unzip 
+      apt: 
+        name: unzip 
+        state: present
+      when: ansible_os_family == "Debian" 
+
+    - name: include onboarding tasks
+      import_tasks:
+        file: ./roles/onboarding_setup.yml
+    - name: add apt repository
+      import_tasks:
+        file: ./roles/add_apt_repo.yml
+    - name: Install MDATP
+      apt:
+        name: mdatp
+        state: latest
+        update_cache: yes

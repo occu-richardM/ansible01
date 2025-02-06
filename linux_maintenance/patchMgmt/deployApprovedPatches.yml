@@ -1,0 +1,14 @@
+---
+- hosts: approved
+  become: yes
+  gather_facts: no
+  vars_files:
+    - approved/approved_packages.yml
+
+  tasks:
+    - name: Install approved package versions
+      apt:
+        name: "{{ item.package_name }}={{ item.version }}"
+        state: present
+      loop: "{{ approved_packages }}"
+

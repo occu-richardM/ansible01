@@ -1,0 +1,16 @@
+---
+- hosts: test
+  become: yes
+  tasks:
+    - name: Update the apt package cache
+      apt:
+        update_cache: yes
+
+    - name: List available package updates
+      shell: apt list --upgradable
+      register: apt_updates
+
+    - name: Display available updates
+      debug:
+        var: apt_updates.stdout_lines
+

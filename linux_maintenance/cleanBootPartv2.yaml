@@ -1,0 +1,54 @@
+---
+- name: Clean up old kernels and free space in /boot
+  hosts: phase1_noefiboot
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Get the list of installed kernels
+      shell: "dpkg --list | grep linux-image | awk '{print $2}'"
+      register: installed_kernels
+
+    - name: Get the current running kernel
+      shell: "uname -r"
+      register: current_kernel
+
+    - name: Show installed kernels
+      debug:
+        var: installed_kernels.stdout_lines
+
+    - name: Show running kernel
+      debug:
+        var: current_kernel.stdout
+
+    - name: Ensure autoremove is set for old kernels
+      shell: "sudo apt-mark auto $(dpkg --list | grep '^ii  linux-image' | awk '{print $2}')"
+      ignore_errors: yes
+
+    - name: Remove all but the two most recent kernels (keeping current running kernel)
+      shell: >
+        for kernel in $(dpkg --list | grep linux-image | awk '{print $2}' | sort -V | grep -v "$(uname -r)" | head -n -2);
+        do
+          sudo apt-get purge -y $kernel;
+        done
+      ignore_errors: yes
+
+    - name: Run apt autoremove to clear unnecessary packages
+      apt:
+        autoremove: yes
+        purge: yes
+
+    - name: Clean up old apt cache
+      apt:
+        autoclean: yes
+
+    - name: Update APT package lists
+      apt: 
+        update_cache: yes
+
+#   - name: Update all Ubuntu packages to their latest version
+#     ansible.builtin.apt:
+#     update_cache: true
+#     cache_valid_time: 3600
+#       name: "*"
+#       state: latest     

@@ -1,0 +1,9 @@
+---
+
+- hosts: test
+  become: yes
+  tasks:
+    - name: Uninstall MDATP
+      apt:
+        name: mdatp
+        state: absent

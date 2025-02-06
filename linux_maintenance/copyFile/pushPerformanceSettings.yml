@@ -1,0 +1,10 @@
+---
+
+- name: Push file to server
+  hosts: phase2
+  become: true
+  tasks:
+    - name: Copy file
+      copy:
+        src: ./PerformanceSettings.json
+        dest: /usr/local/manageengine/uems_agent/data/

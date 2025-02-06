@@ -1,0 +1,23 @@
+---
+- name: Distribute SSH public keys to occuadmin user
+  hosts: ub24-template
+  gather_facts: no
+  
+  vars:
+    ssh_keys_dir: keys
+  tasks:
+    - name: Ensure the .ssh directory exists for occuadmin
+      file:
+        path: "/home/occuadmin/.ssh"
+        state: directory
+        mode: '0700'
+        owner: occuadmin
+        group: occuadmin
+
+    - name: Add public keys to authorized_keys for occuadmin
+      authorized_key:
+        user: occuadmin
+        state: present
+        key: "{{ lookup('file', item) }}"
+        path: "/home/occuadmin/.ssh/authorized_keys"
+      loop: "{{ lookup('fileglob', ssh_keys_dir + '/*.pub', wantlist=True) }}"

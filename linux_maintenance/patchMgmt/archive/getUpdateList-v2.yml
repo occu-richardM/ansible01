@@ -1,0 +1,26 @@
+---
+- hosts: test
+  become: yes
+  tasks:
+    - name: Update the apt package cache
+      apt:
+        update_cache: yes
+
+    - name: Get the list of upgradable packages
+      shell: apt list --upgradable
+      register: apt_updates
+
+    - name: Parse the list of upgradable packages
+      set_fact:
+        upgradable_packages: "{{ apt_updates.stdout_lines | map('regex_search', '(.*)/(.*)\\s+(.*)\\s+.*') | select('!=', None) | map('list') | list }}"
+
+    - name: Create approved_packages.yml with available updates
+      copy:
+        content: |
+          approved_packages:
+          {% for pkg in upgradable_packages %}
+          - package_name: "{{ pkg[0] }}"
+            version: "{{ pkg[2] }}"
+          {% endfor %}
+        dest: /tmp/approved_packages.yml
+

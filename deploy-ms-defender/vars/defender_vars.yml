@@ -1,0 +1,7 @@
+# vars/defender_vars.yml
+
+channel: prod  # Options: 'prod', 'insiders-fast', 'insiders-slow'
+distro: ubuntu  # Replace with 'debian' or 'redhat' as needed
+version: 20.04  # Replace with appropriate version (e.g., 22.04)
+codename: focal  # Replace with the correct codename for the version (e.g., 'focal' for Ubuntu 20.04)
+

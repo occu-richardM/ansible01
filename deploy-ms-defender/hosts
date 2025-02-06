@@ -1,0 +1,21 @@
+[all]
+
+[all:vars]
+ansible_user=occuadmin
+
+
+[patchsource]
+HQ-TEST-SRV-RM ansible_host=10.10.1.141
+
+[test]
+hq-test-linux ansible_host=10.10.0.190
+hq-test-linux2 ansible_host=10.10.0.186
+hq-test-linux3 ansible_host=10.10.0.185
+hq-test-linux4 ansible_host=10.10.0.69
+HQ-TEST-SRV-RM ansible_host=10.10.1.141
+
+[ansible]
+hq-ansible-01 ansible_host=10.10.1.204
+
+[cribl]
+hq-cribl-io-1 ansible_host=10.10.1.229

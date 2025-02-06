@@ -1,0 +1,26 @@
+---
+- name: Check and delete rebootJobs.json if it exists
+  hosts: phase1
+  become: yes
+  gather_facts: no  # Disable fact gathering
+  tasks:
+    - name: Check if rebootJobs.json file exists
+      stat:
+        path: /usr/local/manageengine/uems_agent/data/readOnlyData/rebootJobs.json
+      register: file_check
+    
+    - name: Report if a file exist
+      debug:
+        msg: " REBOOTJOBS.json exist"
+      when: file_check.stat.exists
+
+    - name: Report if a file exist
+      debug:
+        msg: " rebootjobs.json does NOT exist"
+      when: not file_check.stat.exists    
+
+    - name: Delete rebootJobs.json if it exists
+      file:
+        path: /usr/local/manageengine/uems_agent/data/readOnlyData/rebootJobs.json
+        state: absent
+      when: file_check.stat.exists

@@ -1,0 +1,24 @@
+---
+- name: Schedule reboot using cron for GRPB_SET1 and GRPB_SET2
+  hosts: test   #disabled 
+  become: yes
+  gather_facts: no
+
+  tasks:
+    - name: Schedule one-time reboot for GRPB_SET1 (3:05 PM)
+      cron:
+        name: "One-Time Reboot for GRPB_SET1"
+        minute: "10"
+        hour: "11"
+        job: "/sbin/shutdown -r now && crontab -l | grep -v 'One-Time Reboot for GRPB_SET1' | crontab -"
+        state: present
+      when: "'GRPB_SET1' in group_names"
+
+    - name: Schedule one-time reboot for GRPB_SET2 (3:30 PM)
+      cron:
+        name: "One-Time Reboot for GRPB_SET2"
+        minute: "14"
+        hour: "11"
+        job: "/sbin/shutdown -r now && crontab -l | grep -v 'One-Time Reboot for GRPB_SET2' | crontab -"
+        state: present
+      when: "'GRPB_SET2' in group_names"

@@ -1,0 +1,16 @@
+[all]
+[all:vars]
+ansible_user="admin.rmendez"
+ansible_connection=winrm
+
+
+[edge]
+Br-fp-01	ansible_host=10.10.64.90
+Br-mail-01	ansible_host=10.10.64.215
+Br-ntp-01	ansible_host=10.10.64.74
+Br-print-01	ansible_host=10.10.65.15
+Br-rapid-01	ansible_host=10.10.64.188
+Br-rapidivm-01	ansible_host=10.10.64.189
+Br-sharefile-01	ansible_host=10.10.64.64
+Br-smtprelay-01	ansible_host=10.10.64.31
+

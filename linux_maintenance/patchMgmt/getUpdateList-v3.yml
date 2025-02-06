@@ -1,0 +1,52 @@
+---
+- hosts: patchsource
+  become: yes
+  vars:
+    timestamp: "{{ lookup('pipe', 'date +%Y-%m-%d') }}"
+    temp_file: "/tmp/approved_packages_{{ timestamp }}.yml"
+    output_file: "review/approved_packages_{{ timestamp }}.yml"
+
+  tasks:
+    - name: Update the apt package cache on the remote server
+      apt:
+        update_cache: yes
+
+    - name: Get the list of upgradable packages from the remote server
+      shell: apt list --upgradable 2>/dev/null | grep -v 'Listing...'
+      register: apt_updates
+
+    - name: Parse the list of upgradable packages into a structured list
+      set_fact:
+        upgradable_packages: []
+
+    - name: Build the list of upgradable packages
+      loop: "{{ apt_updates.stdout_lines }}"
+      set_fact:
+        upgradable_packages: "{{ upgradable_packages + [{'package_name': item.split('/')[0], 'version': item.split()[1]}] }}"
+      when: item | regex_search('^[^/]+/[^ ]+ [^ ]+')
+
+    - name: Debug parsed package list
+      debug:
+        var: upgradable_packages
+
+    - name: Create approved_packages.yml with available updates on the remote server
+      copy:
+        content: |
+          approved_packages:
+          {% for pkg in upgradable_packages %}
+          - package_name: "{{ pkg.package_name }}"
+            version: "{{ pkg.version }}"
+          {% endfor %}
+        dest: "{{ temp_file }}"
+        mode: '0644'
+
+    - name: Fetch the approved_packages.yml back to the Ansible controller
+      fetch:
+        src: "{{ temp_file }}"
+        dest: "{{ output_file }}"
+        flat: yes
+
+    - name: Display the result of the generated approved package list
+      debug:
+        msg: "The approved packages list has been generated at: {{ output_file }}"
+

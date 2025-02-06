@@ -1,0 +1,22 @@
+---
+- name: Run dpkg -l and retrieve logs
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Run dpkg -l and save output to file
+      shell: "dpkg --get-selections > /tmp/{{ inventory_hostname }}.deb.pkg.log"
+      args:
+        executable: /bin/bash
+
+    - name: Fetch the dpkg log file from the target host
+      fetch:
+        src: /tmp/{{ inventory_hostname }}.deb.pkg.log
+        dest: /tmp/
+        flat: yes
+
+    - name: Clean up the log file on the target host
+      file:
+        path: /tmp/{{ inventory_hostname }}.deb.pkg.log
+        state: absent
+

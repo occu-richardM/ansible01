@@ -1,0 +1,28 @@
+---
+- name: Check /boot partition size and alert if space is less than 60%
+  hosts: phase1
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: Check /boot partition usage
+      command: df -h /boot --output=pcent,size
+      register: boot_partition
+
+    - name: Extract used percentage and size of /boot partition
+      set_fact:
+        boot_partition_usage: "{{ boot_partition.stdout_lines[1].split()[0] | replace('%', '') | int }}"
+        boot_partition_size: "{{ boot_partition.stdout_lines[1].split()[1] }}"
+
+    - name: Display boot partition size
+      debug:
+        msg: "Boot partition size is {{ boot_partition_size }}"
+
+    - name: Check if boot partition usage is greater than or equal to 60%
+      debug:
+        msg: "Warning! Boot partition usage is {{ boot_partition_usage }}%, which is above the 60% threshold."
+      when: boot_partition_usage | int >= 60
+
+    - name: Check if boot partition usage is less than 60%
+      debug:
+        msg: "Boot partition usage is {{ boot_partition_usage }}%, which is within acceptable limits."
+      when: boot_partition_usage | int < 60
