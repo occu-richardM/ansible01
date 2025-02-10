@@ -1,6 +1,6 @@
 ---
 - name: Distribute SSH public keys to occuadmin user
-  hosts: ub24-template
+  hosts: HQ-DOC-PRD-01
   gather_facts: no
   
   vars:

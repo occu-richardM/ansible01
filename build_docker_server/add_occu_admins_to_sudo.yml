@@ -1,0 +1,22 @@
+- name: Add OCCU-ADMINS group to SUDO file
+  hosts: all
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: Remove unwanted %OCCU-ADMINS user (if it exists)
+      user:
+        name: "%OCCU-ADMINS"
+        state: absent
+        remove: yes
+
+    - name: Ensure OCCU-ADMINS group exists
+      group:
+        name: OCCU-ADMINS
+        state: present
+
+    - name: Ensure OCCU-ADMINS has sudo privileges (password required)
+      lineinfile:
+        path: /etc/sudoers
+        line: "%OCCU-ADMINS ALL=(ALL:ALL) ALL"
+        validate: "visudo -cf %s"
+

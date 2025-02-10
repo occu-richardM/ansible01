@@ -1,6 +1,6 @@
 ---
 - name: Clean up old kernels and free space in /boot
-  hosts: phase1_noefiboot
+  hosts: phase2_noefiboot
   become: yes
   gather_facts: no
 

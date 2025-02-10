@@ -1,0 +1,20 @@
+[all]
+
+
+[AWS-PRD]
+TEMENOS_PRD_NGINX_01A ansible_host=10.110.4.15 ansible_user=ubuntu
+TEMENOS_PRD_NGINX_02B ansible_host=10.110.4.45 ansible_user=root
+WithClutch_PRD_NGINX_01B ansible_host=10.110.5.150 ansible_user=ubuntu
+WithClutch_PRD_NGINX_01A ansible_host=10.110.5.135 ansible_user=ubuntu
+uw-rp-01 ansible_host=10.249.0.113 ansible_user=ubuntu # 13.57.34.39
+
+[AWS-UAT]
+TEMENOS_UAT_NGINX_02B ansible_host=10.110.3.45 ansible_user=root 
+TEMENOS_UAT_NGINX_01A ansible_host=10.110.3.15 ansible_user=ubuntu  # 13.52.120.16
+
+[AWS-DEV]
+WithClutch_DEV_NGINX_01B ansible_host=10.110.6.150 ansible_user=ubuntu  # 54.241.166.187
+WithClutch_DEV_NGINX_01A ansible_host=10.110.6.135 ansible_user=ubuntu  # 54.219.237.162
+TestVM ansible_host=10.110.4.29 ansible_user=root 
+
+

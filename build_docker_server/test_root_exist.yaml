@@ -1,0 +1,48 @@
+- name: Ping hosts, check root password, and verify user 'brian'
+  hosts: all
+  gather_facts: yes
+  become: yes
+  tasks:
+
+    - name: Ping each host
+      ping:
+      register: ping_result
+
+    - name: Check if root has a password set
+      shell: "awk -F: '/^root/ {print $2}' /etc/shadow"
+      register: root_password_status
+      changed_when: false
+
+    - name: Check if user 'brian' exists
+      command: id -u brian
+      register: brian_exists
+      failed_when: brian_exists.rc > 1
+      changed_when: false
+      ignore_errors: yes
+
+    - name: Check if 'brian' belongs to sudo group
+      shell: "id -Gn brian | grep -qw sudo && echo 'Yes' || echo 'No'"
+      register: brian_sudo_check
+      changed_when: false
+      when: brian_exists.rc == 0
+
+    - name: Record results locally
+      copy:
+        content: |
+          Host: {{ inventory_hostname }}
+          Ping: {{ 'Success' if ping_result.ping is defined else 'Failed' }}
+          Root Password Set: {{ 'Yes' if root_password_status.stdout != '!' and root_password_status.stdout != '*' else 'No' }}
+          Brian Exists: {{ 'Yes' if brian_exists.rc == 0 else 'No' }}
+          Brian in Sudo Group: {{ brian_sudo_check.stdout if brian_exists.rc == 0 else 'N/A' }}
+        dest: "/tmp/ping_and_user_results_{{ inventory_hostname }}.txt"
+      delegate_to: localhost
+
+    - name: Append results to a centralized log file
+      lineinfile:
+        path: "/tmp/log/ansible_user_check.log"
+        line: |
+          {{ ansible_date_time.date }} {{ ansible_date_time.time }} - Host: {{ inventory_hostname }} | Ping: {{ 'Success' if ping_result.ping is defined else 'Failed' }} | Root Password Set: {{ 'Yes' if root_password_status.stdout != '!' and root_password_status.stdout != '*' else 'No' }} | Brian Exists: {{ 'Yes' if brian_exists.rc == 0 else 'No' }} | Brian in Sudo Group: {{ brian_sudo_check.stdout if brian_exists.rc == 0 else 'N/A' }}
+        create: yes
+      delegate_to: localhost
+      become: yes
+

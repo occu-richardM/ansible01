@@ -1,0 +1,12 @@
+- name: Update root password
+  hosts: [ub24-template]
+  become: yes
+  vars_files:
+    - keys/secrets.yml
+
+  tasks:
+    - name: Update password for root
+      user:
+        name: root
+        password: "{{ root_password }}"
+

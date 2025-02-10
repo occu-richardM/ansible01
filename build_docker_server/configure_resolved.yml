@@ -14,7 +14,7 @@
         marker: "# {mark} ANSIBLE MANAGED BLOCK"
         block: |
           [Resolve]
-          DNS=10.10.0.11 10.10.0.12
+          DNS=10.10.0.11 10.10.0.12 10.10.64.11
           Domains=orangecountyscu.org
       notify: Restart systemd-resolved
 

@@ -1,0 +1,11 @@
+- name: Remove user 'brian' from SUDO groups.
+  hosts: production
+  gather_facts: false
+  become: yes
+  tasks:
+    - name: Remove user 'brian' from ALL OTHER groups except the ones listed in groups.
+      user:
+        name: brian
+        groups: lxd
+        append: no
+
