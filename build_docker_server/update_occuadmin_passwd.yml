@@ -1,0 +1,12 @@
+- name: Update occuadmin password
+  hosts: all
+  become: yes
+  vars_files:
+    - keys/occuadmin-secrets.yml
+
+  tasks:
+    - name: Update password for occuadmin
+      user:
+        name: occuadmin
+        password: "{{ occuadmin_password }}"
+

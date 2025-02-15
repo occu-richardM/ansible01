@@ -1,0 +1,6 @@
+- name: Prune unused Docker images (CLI)
+  hosts: docker_prod
+  become: yes
+  tasks:
+    - name: Run docker image prune
+      command: docker image prune -a --filter "until=72h" --force

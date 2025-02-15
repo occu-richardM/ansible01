@@ -1,8 +1,8 @@
 [all]
 
 [all:vars]
-ansible_user=occuadmin
-
+ansible_python_interpreter=/usr/bin/python3.8
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 [local]
 localhost ansible_connection=local
@@ -74,15 +74,12 @@ HQ-DOCKER-08 ansible_host=10.10.0.145
 HQ-DOCKER-09 ansible_host=10.10.0.146
 HQ-DOCKER-11 ansible_host=10.10.0.150
 HQ-DOCKER-13 ansible_host=10.10.0.162
-HQ-Nginx-01 ansible_host=10.10.59.23
 HQ-NGINX-02 ansible_host=10.10.59.21
 HQ-NGINX-03 ansible_host=10.10.59.43
 HQ-NGINXMORT-D ansible_host=10.10.59.49
 HQ-PNGINX-01 ansible_host=10.10.39.21
 HQ-RABBITMQ-01 ansible_host=10.10.0.164
 HQ-RP-01 ansible_host=10.10.39.22
-#HQ-VAGRANT-02 ansible_host=10.10.0.77 #WINDOWS
-#HQ-VAGRANT-03 ansible_host=10.10.0.202 #WINDOWS
 HQ-WEB-01 ansible_host=10.10.39.32
 HQ-DOC-PRD-01 ansible_host=10.10.53.51
 HQ-DOC-PRD-02 ansible_host=10.10.53.52
@@ -95,4 +92,3 @@ HQ-DOC-PRD-08 ansible_host=10.10.53.58
 HQ-ELAST-PRD-01 ansible_host=10.10.1.143
 HQ-RAB-PRD-01 ansible_host=10.10.53.32
 HQ-TASK-PRD-01 ansible_host=10.10.53.33
-

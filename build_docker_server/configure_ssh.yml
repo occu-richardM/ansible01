@@ -1,5 +1,5 @@
 - name: Configure SSH settings
-  hosts: [ub24-template]
+  hosts: test
   become: yes
   tasks:
     - name: Ensure SSH config directory exists

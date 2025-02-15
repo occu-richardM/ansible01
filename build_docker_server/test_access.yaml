@@ -1,0 +1,20 @@
+- name: Test Authentication and Sudo Privileges
+  hosts: all
+  become: yes  
+  gather_facts: no  
+
+  tasks:
+    - name: Check if Ansible can connect (Ping Test)
+      action: ping
+
+    - debug:
+        var: current_user.stdout
+
+    - name: Check sudo access
+      raw: sudo -l
+      register: sudo_status
+      ignore_errors: yes  
+
+    - debug:
+        var: sudo_status.stdout_lines
+

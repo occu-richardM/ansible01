@@ -1,4 +1,0 @@
-[all]
-
-[NGINX]
-HQ-Nginx-01 ansible_host=10.10.59.23

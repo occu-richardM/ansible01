@@ -1,5 +1,5 @@
 - name: Update root password
-  hosts: [ub24-template]
+  hosts: all
   become: yes
   vars_files:
     - keys/secrets.yml

@@ -1,11 +1,12 @@
 - name: Create users and add SSH keys
-  hosts: [ub24-template]
+  hosts: HQ-DASH-DEV
+  gather_facts: false
   become: yes
   vars:
     users:
       - name: admin.jdang
         ssh_key: "keys/admin.jdang.pub"
-        password: ""  
+        password: "$6$Ubj.lFoyTNAFgz8D$Xb5hFInOK3GnLtVj3lML6ZoEpGSaDOipZNIFsvC02lP1KAOzp8IrSEKbTyijeUwZ/yi6/AxuH5k/PPfGI611f."  
       - name: admin.snasir
         ssh_key: "keys/admin.snasir.pub"
         password: "$6$9gT7HKy0GatMMB29$JGVCQbp0bEFRkP1NMOnlZojE.uJj46tfhHD7HP7EuZ4Dsh64DJ1eY/E/BFcRwBagMVrq8JaxWBvk5TTWM9kHJ."
@@ -46,5 +47,13 @@
         owner: "{{ item.name }}"
         group: "{{item.name}}"
         mode: '0600'
+      loop: "{{ users }}"
+
+    - name:  Add user to docker 
+      user:
+        name: "{{ item.name }}"
+        groups: docker
+        append: yes
+        state: present
       loop: "{{ users }}"
 

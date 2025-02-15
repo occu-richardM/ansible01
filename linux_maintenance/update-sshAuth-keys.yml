@@ -1,0 +1,23 @@
+---
+- name: Create users and add SSH keys
+  hosts: all
+  gather_facts: false
+  become: yes
+  vars:
+    users:
+      - name: admin.jdang        
+        ssh_key: "keys/admin.jdang.pub"        
+      - name: admin.snasir
+        ssh_key: "keys/admin.snasir.pub"
+      - name: admin.rmendez
+        ssh_key: "keys/admin.rmendez.pub"
+
+  tasks:    
+    - name: Add public keys to authorized_keys
+      copy:
+        src: "{{ item.ssh_key }}"
+        dest: "/home/{{ item.name }}/.ssh/authorized_keys"
+        owner: "{{ item.name }}"
+        group: "{{item.name}}"
+        mode: '0600'
+      loop: "{{ users }}"

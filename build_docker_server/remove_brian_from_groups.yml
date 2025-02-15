@@ -6,6 +6,6 @@
     - name: Remove user 'brian' from ALL OTHER groups except the ones listed in groups.
       user:
         name: brian
-        groups: lxd
+        groups: lxd,sudo,adm,docker
         append: no
 

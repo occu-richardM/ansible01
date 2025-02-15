@@ -1,0 +1,15 @@
+[all]
+
+[all:vars]
+#ansible_user=occuadmin
+ansible_python_interpreter=/usr/bin/python3.8
+
+[docker_prod]
+HQ-DOC-PRD-01 ansible_host=10.10.53.51
+HQ-DOC-PRD-02 ansible_host=10.10.53.52
+HQ-DOC-PRD-03 ansible_host=10.10.53.53
+HQ-DOC-PRD-04 ansible_host=10.10.53.54
+HQ-DOC-PRD-05 ansible_host=10.10.53.55
+HQ-DOC-PRD-06 ansible_host=10.10.53.56
+HQ-DOC-PRD-07 ansible_host=10.10.53.57
+HQ-DOC-PRD-08 ansible_host=10.10.53.58
