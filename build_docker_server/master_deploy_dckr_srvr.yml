@@ -1,0 +1,9 @@
+---
+
+- import_playbook: configure_resolved.yml
+- import_playbook: create_admin_accnts_with_key.yml
+- import_playbook: add_occu_admins_to_sudo.yml
+- import_playbook: update_root_passwd.yml
+- import_playbook: update_occuadmin_passwd.yml
+- import_playbook: configure_ssh.yml
+- import_playbook: 
