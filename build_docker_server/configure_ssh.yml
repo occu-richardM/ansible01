@@ -1,5 +1,5 @@
 - name: Configure SSH settings
-  hosts: test
+  hosts: production
   become: yes
   tasks:
     - name: Ensure SSH config directory exists

@@ -72,7 +72,7 @@ HQ-API-01 ansible_host=10.10.39.30
 HQ-API-02 ansible_host=10.10.39.31
 HQ-DOCKER-08 ansible_host=10.10.0.145
 HQ-DOCKER-09 ansible_host=10.10.0.146
-HQ-DOCKER-11 ansible_host=10.10.0.150
+HQ-DOCKER-11 ansible_host=10.10.0.150 ansible_python_interpreter=/usr/bin/python3
 HQ-DOCKER-13 ansible_host=10.10.0.162
 HQ-NGINX-02 ansible_host=10.10.59.21
 HQ-NGINX-03 ansible_host=10.10.59.43
